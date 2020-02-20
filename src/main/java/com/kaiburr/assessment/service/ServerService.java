@@ -59,7 +59,13 @@ public class ServerService {
     }
 
     public void deleteServer(Long id){
-        serverRepository.deleteById(id);
+        Optional<Server> serverOptional =serverRepository.findById(id);
+        if(serverOptional.isPresent()){
+            serverRepository.deleteById(id);
+        }
+        else{
+            throw new IllegalIdentifierException("404");
+        }
     }
 
 }
